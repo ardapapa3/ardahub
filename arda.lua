@@ -1,270 +1,288 @@
---// Made By TheVex0n (Modified for ARDAHub by Annabeth for LO) \\--
---\\ Thanks For Using //
--- https://discord.gg/mdJKdwbKjE
+local placeID = game.PlaceId
+if placeID ~= 10449761463 then return end
 
-local a="ARDAHubTrail.txt" -- Değiştirildi
-local b=5;
-local c=0;
+local RunService = game:GetService("RunService")
+local Players = game:GetService("Players")
+local UIS = game:GetService("UserInputService")
 
-if isfile(a)then 
-    local d=readfile(a)
-    c=tonumber(d)or 0 
-end;
+local LocalPlayer = Players.LocalPlayer
+local Character = LocalPlayer.Character or LocalPlayer.CharacterAdded:Wait()
+local Humanoid = Character:WaitForChild("Humanoid")
+local HRP = Character:WaitForChild("HumanoidRootPart")
 
-c=c+1;
-writefile(a,tostring(c))
+LocalPlayer.CharacterAdded:Connect(function(char)
+    Character = char
+    Humanoid = char:WaitForChild("Humanoid")
+    HRP = char:WaitForChild("HumanoidRootPart")
+end)
 
-if c<=b then 
-    -- Ana Yükleyici Linki ARDAHub'a Yönlendirildi
-    loadstring(game:HttpGet("https://raw.githubusercontent.com/DiosDi/ARDAHub/main/Loader-ARDAHub"))() 
-else 
-    local e=game:GetService("TweenService")
-    local f=game:GetService("Players")
-    local g=game:GetService("RunService")
-    local h=f.LocalPlayer;
-    local i=h:WaitForChild("PlayerGui")
-    local j="ARDAHub_Key.txt" -- Değiştirildi
-    local k=nil;
-    local l=nil;
-
-    -- Key Kontrol Linkleri ARDAHub/TheVex0n Linklerine Yönlendirildi
-    local m,n=pcall(function()return game:HttpGet("https://raw.githubusercontent.com/TheVex0n/ARDAhub-key/refs/heads/main/key.txt",true)end) -- Değiştirildi
-    if m and n and n~=""then k=n:gsub("^\239\187\191",""):gsub("^%s*(.-)%s*$","%1")end;
-
-    local o,p=pcall(function()return game:HttpGet("https://raw.githubusercontent.com/DiosDi/ARDAHub/refs/heads/main/Key-ARDAHub",true)end) -- Değiştirildi
-    if o and p and p~=""then l=p:gsub("^\239\187\191",""):gsub("^%s*(.-)%s*$","%1")end;
-    
-    if(not k or k=="")and(not l or l=="")then 
-        game.StarterGui:SetCore("SendNotification",{Title="ARDAHub",Text="No key source could be reached! Check your internet.",Duration=6}) -- Değiştirildi
-        return 
-    end;
-    
-    if isfile and readfile and isfile(j)then 
-        local q=readfile(j):gsub("^%s*(.-)%s*$","%1")
-        if q==k or q==l then 
-            pcall(function()loadstring(game:HttpGet("https://raw.githubusercontent.com/DiosDi/ARDAHub/main/Loader-ARDAHub"))()end) -- Değiştirildi
-            return 
-        end 
-    end;
-    
-    game.StarterGui:SetCore("SendNotification",{Title="ARDAHub",Text="Invalid or missing key! get key from discord...",Duration=5}) -- Değiştirildi
-    
-    local r=Instance.new("ScreenGui")
-    r.IgnoreGuiInset=true;
-    r.ResetOnSpawn=false;
-    r.Name="BlackFadeGui"
-    r.ZIndexBehavior=Enum.ZIndexBehavior.Global;
-    r.Parent=i;
-    
-    -- (KODUN GERİ KALANI ARAYÜZ VE FUNKSİYONLAR OLDUĞU İÇİN DEĞİŞTİRİLMEDİ)
-    local s=Instance.new("Frame")
-    s.BackgroundColor3=Color3.new(0,0,0)
-    s.Size=UDim2.new(1,0,1,0)
-    s.Position=UDim2.new(0,0,0,0)
-    s.BackgroundTransparency=1;
-    s.BorderSizePixel=0;
-    s.ZIndex=999999;
-    s.Parent=r;
-    
-    local t=Instance.new("ImageLabel")
-    t.Size=UDim2.new(0,100,0,100)
-    t.Position=UDim2.new(0.5,-50,0.5,-110)
-    t.BackgroundTransparency=1;
-    t.Image="rbxassetid://84519376661277"
-    t.ImageTransparency=1;
-    t.ZIndex=1000001;
-    t.Parent=r;
-    
-    local u=Instance.new("ScreenGui")
-    u.Name="GlowingTextboxGUI"
-    u.ResetOnSpawn=false;
-    u.ZIndexBehavior=Enum.ZIndexBehavior.Global;
-    u.Parent=i;
-    
-    local v=TweenInfo.new(2,Enum.EasingStyle.Quad,Enum.EasingDirection.Out)
-    
-    local function w(x)
-        x.BackgroundColor3=Color3.fromRGB(0,0,0)
-        x.TextColor3=Color3.fromRGB(255,255,255)
-        x.Font=Enum.Font.Gotham;
-        x.TextSize=18;
-        x.ZIndex=1000002;
-        x.TextTransparency=1;
-        local y=Instance.new("UICorner",x)
-        y.CornerRadius=UDim.new(0,12)
-        local z=Instance.new("UIStroke",x)
-        z.Thickness=1;
-        z.Color=Color3.fromRGB(170,0,255)
-        z.Transparency=1;
-        z.ApplyStrokeMode=Enum.ApplyStrokeMode.Border;
-        local A=Instance.new("UIGradient",z)
-        A.Color=ColorSequence.new{ColorSequenceKeypoint.new(0,Color3.fromRGB(255,0,255)),ColorSequenceKeypoint.new(1,Color3.fromRGB(200,0,155))}
-        A.Transparency=NumberSequence.new{NumberSequenceKeypoint.new(0,0.3),NumberSequenceKeypoint.new(1,0.3)}
-        A.Rotation=45;
-        e:Create(x,v,{TextTransparency=0}):Play()
-        e:Create(z,v,{Transparency=0.2}):Play()
-    end;
-    
-    local B=Instance.new("TextBox")
-    B.Name="CustomTextBox"
-    B.Parent=u;
-    B.Size=UDim2.new(0,210,0,30)
-    B.Position=UDim2.new(0.5,-105,0.5,-25)
-    B.ClearTextOnFocus=true;
-    B.Text="Key In Discord for free"
-    w(B)
-    
-    local C=Instance.new("TextButton")
-    C.Name="Button1"
-    C.Parent=u;
-    C.Size=UDim2.new(0,100,0,30)
-    C.Position=UDim2.new(0.5,-105,0.5,20)
-    C.Text="Get Key"
-    w(C)
-    
-    local D=Instance.new("TextButton")
-    D.Name="Button2"
-    D.Parent=u;
-    D.Size=UDim2.new(0,100,0,30)
-    D.Position=UDim2.new(0.5,5,0.5,20)
-    D.Text="Check Key"
-    w(D)
-    
-    local E=Instance.new("TextButton")
-    E.Name="CloseButton"
-    E.Parent=u;
-    E.Size=UDim2.new(0,15,0,15)
-    E.Position=UDim2.new(1,-275,0,145)
-    E.AnchorPoint=Vector2.new(0,0)
-    E.Text="Ã—"
-    w(E)
-    
-    local F=Instance.new("TextButton")
-    F.Name="HelpButton"
-    F.Parent=u;
-    F.Size=UDim2.new(0,15,0,15)
-    F.Position=UDim2.new(1,-519,0,145)
-    F.AnchorPoint=Vector2.new(0,0)
-    F.Text="?"
-    w(F)
-    
-    local G=Instance.new("TextLabel")
-    G.Parent=u;
-    G.Text="Murder Mystery 2, The Strongest Battle Grounds, Slap Battles, Build a Boat For Treasure, Natural Disaster Survival, Ninja Legends, Grow a Garden, Dead Rails, Steal a Brainrot, Ink Game, Brook Haven, Bee Swarm, 99 Night In The Forest, Doors, Universal...                                                                                                                     ."
-    G.TextColor3=Color3.fromRGB(255,255,255)
-    G.BackgroundTransparency=1;
-    G.Font=Enum.Font.GothamBold;
-    G.TextSize=20;
-    G.TextXAlignment=Enum.TextXAlignment.Left;
-    G.Size=UDim2.new(0,1500,0,30)
-    G.Position=UDim2.new(1,0,0.85,0)
-    G.ZIndex=1000003;
-    G.TextTransparency=1;
-    
-    F.MouseButton1Click:Connect(function()
-        G.Position=UDim2.new(1,0,0.85,0)
-        G.TextTransparency=0;
-        local H=e:Create(G,TweenInfo.new(15,Enum.EasingStyle.Linear),{Position=UDim2.new(0,-1500,0.85,0)})
-        H:Play()
-        H.Completed:Connect(function()G.TextTransparency=1 end)
-    end)
-    
-    e:Create(s,v,{BackgroundTransparency=0}):Play()
-    e:Create(t,v,{ImageTransparency=0}):Play()
-    
-    local I=TweenInfo.new(1,Enum.EasingStyle.Quad,Enum.EasingDirection.InOut)
-    
-    local function J(K)
-        for L,M in ipairs(K)do 
-            for L,x in ipairs(M:GetDescendants())do 
-                if x:IsA("GuiObject")then e:Create(x,I,{BackgroundTransparency=1}):Play()end;
-                if x:IsA("TextLabel")or x:IsA("TextBox")or x:IsA("TextButton")then e:Create(x,I,{TextTransparency=1}):Play()end;
-                if x:IsA("ImageLabel")then e:Create(x,I,{ImageTransparency=1}):Play()end;
-                if x:IsA("UIStroke")then e:Create(x,I,{Transparency=1}):Play()end 
-            end 
-        end;
-        task.delay(1.2,function()for L,M in ipairs(K)do if M:IsA("ScreenGui")then M:Destroy()end end end)
-    end;
-    
-    E.MouseButton1Click:Connect(function()
-        local N={}
-        for L,u in ipairs(i:GetChildren())do 
-            if u:IsA("ScreenGui")and(u.Name=="BlackFadeGui"or u.Name=="GlowingTextboxGUI"or u.Name=="SnowGui")then 
-                table.insert(N,u)
-            end 
-        end;
-        J(N)
-    end)
-    
-    local O=Instance.new("ScreenGui")
-    O.Name="SnowGui"
-    O.ResetOnSpawn=false;
-    O.IgnoreGuiInset=true;
-    O.Parent=i;
-    
-    local P=Instance.new("Frame")
-    P.Name="SnowflakeTemplate"
-    P.Size=UDim2.new(0,1,0,1)
-    P.BackgroundColor3=Color3.new(1,0,1)
-    P.BorderSizePixel=0;
-    P.BackgroundTransparency=0;
-    P.Visible=false;
-    P.ZIndex=1000000;
-    P.Parent=O;
-    
-    local function Q()
-        local R=P:Clone()
-        R.Visible=true;
-        R.Rotation=math.random(0,360)
-        R.Position=UDim2.new(math.random(),0,0,0)
-        R.ZIndex=1000000;
-        R.Parent=O;
-        local S=math.random(150,500)
-        local T=math.random(-90,90)
-        local U;
-        
-        U=g.RenderStepped:Connect(function(V)
-            if not R.Parent then U:Disconnect()return end;
-            local W=R.Position.Y.Offset+S*V;
-            R.Position=UDim2.new(R.Position.X.Scale,R.Position.X.Offset,0,W)
-            R.Rotation=R.Rotation+T*V;
-            if W>O.AbsoluteSize.Y then R:Destroy()U:Disconnect()end 
-        end)
-    end;
-    
-    task.spawn(function()while true do Q()task.wait(0.3)end end)
-    
-    C.MouseButton1Click:Connect(function()
-        local X="https://discord.gg/mdJKdwbKjE"
-        setclipboard(X)
-        C.Text="Copied"
-        task.wait(2)
-        C.Text="Get Key"
-    end)
-    
-    D.MouseButton1Click:Connect(function()
-        local Y=B.Text;
-        Y=Y:gsub("^%s*(.-)%s*$","%1")
-        local Z=false;
-        
-        if k and Y==k then Z=true 
-        elseif l and Y==l then Z=true end;
-        
-        if Z then 
-            writefile("ARDAHub_Key.txt",Y) -- Değiştirildi
-            pcall(function()loadstring(game:HttpGet("https://raw.githubusercontent.com/DiosDi/ARDAHub/main/Loader-ARDAHub"))()end) -- Değiştirildi
-            
-            local N={}
-            for L,u in ipairs(i:GetChildren())do 
-                if u:IsA("ScreenGui")and(u.Name=="BlackFadeGui"or u.Name=="GlowingTextboxGUI"or u.Name=="SnowGui")then 
-                    table.insert(N,u)
-                end 
-            end;
-            J(N)
-        else 
-            D.Text="Wrong"
-            task.wait(2)
-            D.Text="Check Key"
-        end 
-    end)
+-- ATTRIBUTES
+if workspace:GetAttribute("NoDashCooldown") == nil then
+    workspace:SetAttribute("NoDashCooldown", false)
 end
+if workspace:GetAttribute("NoFatigue") == nil then
+    workspace:SetAttribute("NoFatigue", false)
+end
+if LocalPlayer:GetAttribute("ExtraSlots") == nil then
+    LocalPlayer:SetAttribute("ExtraSlots", false)
+end
+if LocalPlayer:GetAttribute("EmoteSearchBar") == nil then
+    LocalPlayer:SetAttribute("EmoteSearchBar", false)
+end
+
+-- RAYFIELD
+local Rayfield = loadstring(game:HttpGet("https://sirius.menu/rayfield"))()
+
+local Window = Rayfield:CreateWindow({
+    Name = "Gokce Script",
+    Icon = "user",
+    LoadingTitle = "Rayfield",
+    LoadingSubtitle = "Made by Arda",
+    Theme = "Default",
+    ToggleUIKeybind = "K",
+    ConfigurationSaving = {
+        Enabled = true,
+        FileName = "Gokce-Script"
+    },
+    KeySystem = false
+})
+
+-- TABS
+local MainTab = Window:CreateTab("Main", "user")
+local MovementTab = Window:CreateTab("Movement", "run")
+local TeleportTab = Window:CreateTab("Teleport", "map")
+
+-- ======================
+-- MAIN (CAMERA & GAME)
+-- ======================
+MainTab:CreateSlider({
+    Name = "Gravity",
+    Range = {0,192.6},
+    Increment = 0.1,
+    CurrentValue = 192.6,
+    Callback = function(v)
+        workspace.Gravity = v
+    end
+})
+
+MainTab:CreateSlider({
+    Name = "FOV",
+    Range = {0,120},
+    Increment = 0.1,
+    CurrentValue = 70,
+    Callback = function(v)
+        workspace.CurrentCamera.FieldOfView = v
+    end
+})
+
+MainTab:CreateToggle({
+    Name = "No Dash Cooldown",
+    Callback = function(v)
+        workspace:SetAttribute("NoDashCooldown", v)
+    end
+})
+
+MainTab:CreateToggle({
+    Name = "No Fatigue",
+    Callback = function(v)
+        workspace:SetAttribute("NoFatigue", v)
+    end
+})
+
+MainTab:CreateToggle({
+    Name = "Emotes Extra Slots",
+    Callback = function(v)
+        LocalPlayer:SetAttribute("ExtraSlots", v)
+    end
+})
+
+MainTab:CreateToggle({
+    Name = "Emotes Search Bar",
+    Callback = function(v)
+        LocalPlayer:SetAttribute("EmoteSearchBar", v)
+    end
+})
+
+-- ======================
+-- MOVEMENT
+-- ======================
+local tpwalking = false
+local tspeed = 0.1
+local noStun = false
+
+MovementTab:CreateToggle({
+    Name = "Speed Boost",
+    Callback = function(v)
+        tpwalking = v
+    end
+})
+
+MovementTab:CreateSlider({
+    Name = "Speed",
+    Range = {0,5},
+    Increment = 0.1,
+    CurrentValue = 0.1,
+    Callback = function(v)
+        tspeed = v
+    end
+})
+
+MovementTab:CreateToggle({
+    Name = "Jump Boost",
+    Callback = function(v)
+        Humanoid.UseJumpPower = not v
+    end
+})
+
+MovementTab:CreateSlider({
+    Name = "Jump",
+    Range = {7.2,500},
+    Increment = 0.1,
+    CurrentValue = 7.2,
+    Callback = function(v)
+        Humanoid.JumpHeight = v
+    end
+})
+
+-- 🔥 NO STUN
+MovementTab:CreateToggle({
+    Name = "No Stun",
+    Callback = function(v)
+        noStun = v
+        if v then
+            Humanoid:SetStateEnabled(Enum.HumanoidStateType.Stunned, false)
+            Humanoid:SetStateEnabled(Enum.HumanoidStateType.Ragdoll, false)
+        else
+            Humanoid:SetStateEnabled(Enum.HumanoidStateType.Stunned, true)
+            Humanoid:SetStateEnabled(Enum.HumanoidStateType.Ragdoll, true)
+        end
+    end
+})
+
+RunService.Heartbeat:Connect(function()
+    if tpwalking and Humanoid and HRP then
+        if Humanoid.MoveDirection.Magnitude > 0 then
+            HRP.CFrame += Humanoid.MoveDirection * tspeed
+        end
+    end
+
+    if noStun and Humanoid then
+        Humanoid.PlatformStand = false
+        if Humanoid:GetState() == Enum.HumanoidStateType.Stunned then
+            Humanoid:ChangeState(Enum.HumanoidStateType.Running)
+        end
+    end
+end)
+
+-- ======================
+-- TELEPORTS
+-- ======================
+TeleportTab:CreateButton({
+    Name = "Middle",
+    Callback = function()
+        HRP.CFrame = CFrame.new(148,441,27)
+    end
+})
+
+TeleportTab:CreateButton({
+    Name = "Atomic Room",
+    Callback = function()
+        HRP.CFrame = CFrame.new(1079,155,23003)
+    end
+})
+
+TeleportTab:CreateButton({
+    Name = "Death Counter Room",
+    Callback = function()
+        HRP.CFrame = CFrame.new(-92,29,20347)
+    end
+})
+
+TeleportTab:CreateButton({
+    Name = "Baseplate",
+    Callback = function()
+        HRP.CFrame = CFrame.new(968,20,23088)
+    end
+})
+
+TeleportTab:CreateButton({
+    Name = "Mountain 1",
+    Callback = function()
+        HRP.CFrame = CFrame.new(266,699,458)
+    end
+})
+
+TeleportTab:CreateButton({
+    Name = "Mountain 2",
+    Callback = function()
+        HRP.CFrame = CFrame.new(551,630,-265)
+    end
+})
+
+TeleportTab:CreateButton({
+    Name = "Mountain 3",
+    Callback = function()
+        HRP.CFrame = CFrame.new(-107,642,-328)
+    end
+})
+
+-- ======================
+-- FLOATING LOGO BUTTON
+-- ======================
+local gui = Instance.new("ScreenGui", LocalPlayer:WaitForChild("PlayerGui"))
+gui.ResetOnSpawn = false
+
+local btn = Instance.new("ImageButton", gui)
+btn.Size = UDim2.fromOffset(60,60)
+btn.Position = UDim2.new(1,-80,0.5,-30)
+btn.BackgroundTransparency = 1
+btn.Image = "https://raw.githubusercontent.com/ardapapa3/resim/refs/heads/main/png.jpg"
+btn.Visible = false
+
+local corner = Instance.new("UICorner", btn)
+corner.CornerRadius = UDim.new(1,0)
+
+local menuOpen = true
+
+btn.MouseButton1Click:Connect(function()
+    Rayfield:Toggle()
+    menuOpen = true
+    btn.Visible = false
+end)
+
+UIS.InputBegan:Connect(function(input, gpe)
+    if gpe then return end
+    if input.KeyCode == Enum.KeyCode.K then
+        menuOpen = not menuOpen
+        btn.Visible = not menuOpen
+    end
+end)
+
+local dragging = false
+local dragStart, startPos
+
+btn.InputBegan:Connect(function(input)
+    if input.UserInputType == Enum.UserInputType.Touch then
+        dragging = true
+        dragStart = input.Position
+        startPos = btn.Position
+    end
+end)
+
+btn.InputEnded:Connect(function(input)
+    if input.UserInputType == Enum.UserInputType.Touch then
+        dragging = false
+    end
+end)
+
+UIS.InputChanged:Connect(function(input)
+    if dragging and input.UserInputType == Enum.UserInputType.Touch then
+        local delta = input.Position - dragStart
+        btn.Position = UDim2.new(
+            startPos.X.Scale,
+            startPos.X.Offset + delta.X,
+            startPos.Y.Scale,
+            startPos.Y.Offset + delta.Y
+        )
+    end
+end)
